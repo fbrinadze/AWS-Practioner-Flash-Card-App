@@ -7,7 +7,6 @@
 
 Interactive flashcard application for AWS Certified Cloud Practitioner (CLF-C02) exam preparation.
 
-![AWS Flashcards Screenshot](assets/screenshot.png)
 
 ## ✨ Features
 
