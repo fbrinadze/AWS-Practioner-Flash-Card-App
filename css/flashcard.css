@@ -1,0 +1,233 @@
+/* ==========================================================================
+   AWS Flashcards - Flashcard Styles
+   Card flip animation and card-specific styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Flashcard Container
+   -------------------------------------------------------------------------- */
+.flashcard-section {
+    margin: var(--space-6) 0;
+}
+
+.flashcard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+/* --------------------------------------------------------------------------
+   Flashcard Base
+   -------------------------------------------------------------------------- */
+.flashcard {
+    width: 100%;
+    max-width: var(--max-width-card);
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--transition-flip);
+    cursor: pointer;
+}
+
+.flashcard:focus {
+    outline: none;
+}
+
+.flashcard:focus-visible {
+    outline: 3px solid var(--aws-orange);
+    outline-offset: 4px;
+    border-radius: var(--radius-2xl);
+}
+
+/* Flipped state */
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+
+/* --------------------------------------------------------------------------
+   Flashcard Faces
+   -------------------------------------------------------------------------- */
+.flashcard__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius-2xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-8);
+    text-align: center;
+}
+
+/* Front face - Question */
+.flashcard__face--front {
+    background: linear-gradient(145deg, var(--aws-dark-light), var(--color-gray-800));
+    border: 3px solid var(--aws-orange);
+    box-shadow: var(--shadow-card);
+}
+
+/* Back face - Answer */
+.flashcard__face--back {
+    background: linear-gradient(145deg, var(--aws-orange), var(--aws-orange-dark));
+    color: var(--aws-dark);
+    transform: rotateY(180deg);
+    box-shadow: var(--shadow-card-orange);
+}
+
+/* --------------------------------------------------------------------------
+   Card Category Badge
+   -------------------------------------------------------------------------- */
+.flashcard__category {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-5);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: rgba(255, 153, 0, 0.2);
+    color: var(--aws-orange);
+}
+
+.flashcard__face--back .flashcard__category {
+    background: rgba(35, 47, 62, 0.2);
+    color: var(--aws-dark);
+}
+
+/* --------------------------------------------------------------------------
+   Card Content
+   -------------------------------------------------------------------------- */
+.flashcard__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-4) 0;
+    width: 100%;
+}
+
+.flashcard__question {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-white);
+}
+
+.flashcard__answer {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-relaxed);
+    color: var(--aws-dark);
+}
+
+/* --------------------------------------------------------------------------
+   Card Hint
+   -------------------------------------------------------------------------- */
+.flashcard__hint {
+    position: absolute;
+    bottom: var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    transition: opacity var(--transition-base);
+}
+
+.flashcard:hover .flashcard__hint {
+    opacity: 1;
+}
+
+.flashcard__hint-icon {
+    font-size: var(--font-size-base);
+}
+
+/* --------------------------------------------------------------------------
+   Card Mastered State
+   -------------------------------------------------------------------------- */
+.flashcard.mastered .flashcard__face--front {
+    border-color: var(--color-success);
+}
+
+.flashcard.mastered .flashcard__face--front::after {
+    content: '✓';
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-5);
+    width: 24px;
+    height: 24px;
+    background: var(--color-success);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .flashcard {
+        height: 320px;
+    }
+    
+    .flashcard__face {
+        padding: var(--space-6);
+    }
+    
+    .flashcard__question {
+        font-size: var(--font-size-lg);
+    }
+    
+    .flashcard__answer {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .flashcard {
+        height: 300px;
+    }
+    
+    .flashcard__face {
+        padding: var(--space-5);
+    }
+    
+    .flashcard__question,
+    .flashcard__answer {
+        font-size: var(--font-size-base);
+    }
+    
+    .flashcard__category {
+        font-size: 0.65rem;
+        padding: var(--space-1) var(--space-2);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Animation for card entry
+   -------------------------------------------------------------------------- */
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flashcard-container {
+    animation: cardSlideIn var(--transition-slow) ease-out;
+}

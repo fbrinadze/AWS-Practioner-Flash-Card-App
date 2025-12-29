@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive flashcards for AWS Cloud Practitioner (CLF-C02) exam preparation. Study cloud concepts, security, technology, and billing topics.">
+    <meta name="keywords" content="AWS, Cloud Practitioner, CLF-C02, certification, flashcards, study, exam prep">
+    <meta name="author" content="AWS Flashcards">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="AWS Cloud Practitioner Flashcards">
+    <meta property="og:description" content="Interactive flashcards for CLF-C02 exam preparation">
+    <meta property="og:type" content="website">
+    
+    <title>AWS Cloud Practitioner Flashcards | CLF-C02 Exam Prep</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/flashcard.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header__logo">
+            <span class="header__icon">☁️</span>
+            <div class="header__text">
+                <h1 class="header__title">AWS Cloud Practitioner Flashcards</h1>
+                <p class="header__subtitle">CLF-C02 Exam Preparation</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Category Filter -->
+        <nav class="category-filter" role="navigation" aria-label="Card categories">
+            <button class="category-btn active" data-category="all" aria-pressed="true">
+                <span class="category-btn__icon">📚</span>
+                <span class="category-btn__text">All Cards</span>
+                <span class="category-btn__count" data-count="all">50</span>
+            </button>
+            <button class="category-btn" data-category="concepts" aria-pressed="false">
+                <span class="category-btn__icon">☁️</span>
+                <span class="category-btn__text">Cloud Concepts</span>
+                <span class="category-btn__count" data-count="concepts">12</span>
+            </button>
+            <button class="category-btn" data-category="security" aria-pressed="false">
+                <span class="category-btn__icon">🔒</span>
+                <span class="category-btn__text">Security</span>
+                <span class="category-btn__count" data-count="security">15</span>
+            </button>
+            <button class="category-btn" data-category="technology" aria-pressed="false">
+                <span class="category-btn__icon">⚙️</span>
+                <span class="category-btn__text">Technology</span>
+                <span class="category-btn__count" data-count="technology">15</span>
+            </button>
+            <button class="category-btn" data-category="billing" aria-pressed="false">
+                <span class="category-btn__icon">💰</span>
+                <span class="category-btn__text">Billing & Pricing</span>
+                <span class="category-btn__count" data-count="billing">8</span>
+            </button>
+        </nav>
+
+        <!-- Progress Section -->
+        <section class="progress-section" aria-label="Study progress">
+            <div class="progress__counter">
+                Card <span id="currentCard" class="progress__current">1</span> 
+                of <span id="totalCards" class="progress__total">50</span>
+            </div>
+            <div class="progress__bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress__fill" id="progressFill"></div>
+            </div>
+        </section>
+
+        <!-- Flashcard Section -->
+        <section class="flashcard-section" aria-label="Flashcard">
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Click or press space to flip card">
+                    <!-- Front of Card -->
+                    <div class="flashcard__face flashcard__face--front">
+                        <span class="flashcard__category" id="categoryLabel">Category</span>
+                        <div class="flashcard__content">
+                            <p class="flashcard__question" id="question">Loading...</p>
+                        </div>
+                        <div class="flashcard__hint">
+                            <span class="flashcard__hint-icon">👆</span>
+                            <span>Click to reveal answer</span>
+                        </div>
+                    </div>
+                    <!-- Back of Card -->
+                    <div class="flashcard__face flashcard__face--back">
+                        <span class="flashcard__category" id="categoryLabelBack">Category</span>
+                        <div class="flashcard__content">
+                            <p class="flashcard__answer" id="answer">Answer here</p>
+                        </div>
+                        <div class="flashcard__hint">
+                            <span class="flashcard__hint-icon">🔄</span>
+                            <span>Click to see question</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Controls -->
+        <nav class="navigation" aria-label="Card navigation">
+            <button class="nav-btn nav-btn--prev" id="prevBtn" aria-label="Previous card">
+                <span class="nav-btn__icon">←</span>
+                <span class="nav-btn__text">Previous</span>
+            </button>
+            <button class="nav-btn nav-btn--next" id="nextBtn" aria-label="Next card">
+                <span class="nav-btn__text">Next</span>
+                <span class="nav-btn__icon">→</span>
+            </button>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <button class="action-btn action-btn--shuffle" id="shuffleBtn" aria-label="Shuffle cards">
+                <span class="action-btn__icon">🔀</span>
+                <span>Shuffle Cards</span>
+            </button>
+            <button class="action-btn action-btn--reset" id="resetBtn" aria-label="Reset progress">
+                <span class="action-btn__icon">↺</span>
+                <span>Reset Progress</span>
+            </button>
+        </div>
+
+        <!-- Statistics Section -->
+        <section class="stats" aria-label="Study statistics">
+            <div class="stat">
+                <span class="stat__value" id="viewedCount">0</span>
+                <span class="stat__label">Cards Viewed</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="remainingCount">50</span>
+                <span class="stat__label">Remaining</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="masteredCount">0</span>
+                <span class="stat__label">Mastered</span>
+            </div>
+        </section>
+
+        <!-- Keyboard Shortcuts -->
+        <footer class="keyboard-hints">
+            <p class="keyboard-hints__title">Keyboard Shortcuts</p>
+            <div class="keyboard-hints__list">
+                <span class="keyboard-hint">
+                    <kbd>←</kbd> Previous
+                </span>
+                <span class="keyboard-hint">
+                    <kbd>→</kbd> Next
+                </span>
+                <span class="keyboard-hint">
+                    <kbd>Space</kbd> Flip
+                </span>
+                <span class="keyboard-hint">
+                    <kbd>S</kbd> Shuffle
+                </span>
+                <span class="keyboard-hint">
+                    <kbd>M</kbd> Mark Mastered
+                </span>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="data/flashcards-data.js"></script>
+    <script src="js/flashcard-app.js"></script>
+</body>
+</html>
